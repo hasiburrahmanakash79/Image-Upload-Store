@@ -18,10 +18,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Multer configuration for file upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./uploads"); // Folder to save uploaded images
+    cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -44,7 +44,7 @@ async function run() {
     // Fetch data from MongoDB
     app.get("/test", async (req, res) => {
       try {
-        const result = await collection.find().toArray(); // Get all data
+        const result = await collection.find().toArray(); 
         res.status(200).send(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -62,7 +62,7 @@ async function run() {
           name,
           url,
           details,
-          imageUrl, // Local path stored in MongoDB
+          imageUrl,
         };
 
         const result = await collection.insertOne(addItems);
@@ -86,7 +86,7 @@ async function run() {
           fs.unlink(oldImageUrl, (err) => {
             if (err) console.error("Error deleting old image:", err);
           });
-          updatedImageUrl = req.file.path; // New image path
+          updatedImageUrl = req.file.path;
         }
 
         const updatedData = { name, url, details, imageUrl: updatedImageUrl };
@@ -110,10 +110,10 @@ async function run() {
 
     app.delete("/test/:id", async (req, res) => {
       const { id } = req.params;
-      const { imageUrl } = req.body; // Get image path from request body
+      const { imageUrl } = req.body;
     
       try {
-        const result = await collection.deleteOne({ _id: new ObjectId(id) }); // Use ObjectId properly
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
     
         if (result.deletedCount === 1) {
           // Delete the image file from the server
@@ -137,7 +137,7 @@ async function run() {
     await client.db("admin").command({ ping: 1 });
     console.log("Successfully connected to MongoDB!");
   } finally {
-    // await client.close(); // Uncomment if you want to close the client
+    // await client.close();
   }
 }
 
