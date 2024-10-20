@@ -1,62 +1,3 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const Home = () => {
-//   const [data, setData] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   // Fetch data from the backend
-//   const fetchData = async () => {
-//     try {
-//       const response = await axios.get("http://localhost:3000/test");
-//       setData(response.data);
-//       setLoading(false);
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//       setLoading(false);
-//     }
-//   };
-
-//   // Fetch data when the component mounts
-//   useEffect(() => {
-//     fetchData();
-//   }, []);
-
-//   if (loading) return <p>Loading...</p>;
-//   console.log(data);
-
-//   return (
-//     <div className="p-4">
-//   <h1 className="text-2xl font-bold mb-4">Uploaded Data</h1>
-//   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//     {data.map((item) => (
-//       <div key={item._id} className="p-4 border rounded shadow">
-//         <img
-//           src={`http://localhost:3000/${item.imageUrl}`} // Ensure this matches your Express static path
-//           alt={item.name}
-//           className="w-full h-48 object-cover mb-2"
-//         />
-//         <div className="flex items-center justify-between">
-//         <div>
-//         <h2 className="text-xl font-semibold">{item.name}</h2>
-//         <p>{item.details}</p>
-//         <p className="text-sm text-gray-500">URL: {item.url}</p>
-//         </div>
-//         <div>
-//           <button>Delete</button>
-//         </div>
-//         </div>
-//       </div>
-//     ))}
-//   </div>
-// </div>
-
-//   );
-// };
-
-// export default Home;
-
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2"; // Import SweetAlert2
@@ -91,6 +32,7 @@ const Home = () => {
       const response = await axios.put(`http://localhost:3000/test/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      console.log(response);
   
       // Success alert
       Swal.fire("Updated!", "Your data has been updated.", "success");
