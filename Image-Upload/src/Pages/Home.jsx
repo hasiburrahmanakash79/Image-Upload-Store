@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -32,8 +32,8 @@ const Home = () => {
     formData.append("name", newName);
     formData.append("url", newUrl);
     formData.append("details", newDetails);
-    formData.append("oldImageUrl", oldImageUrl); // Send old image path to delete it
-    if (newImageFile) formData.append("image", newImageFile); // Append new image if provided
+    formData.append("oldImageUrl", oldImageUrl);
+    if (newImageFile) formData.append("image", newImageFile);
 
     try {
       const response = await axios.put(
@@ -48,8 +48,8 @@ const Home = () => {
       // Success alert
       Swal.fire("Updated!", "Your data has been updated.", "success");
 
-      fetchData(); // Refresh data after updating
-      setEditingItem(null); // Close the modal
+      fetchData();
+      setEditingItem(null);
     } catch (error) {
       console.error("Error updating data:", error);
       Swal.fire("Error!", "Failed to update the data.", "error");
@@ -74,10 +74,10 @@ const Home = () => {
       if (result.isConfirmed) {
         try {
           await axios.delete(`http://localhost:3000/test/${id}`, {
-            data: { imageUrl }, // Send image path to backend for deletion
+            data: { imageUrl },
           });
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
-          fetchData(); // Refresh data after deletion
+          fetchData();
         } catch (error) {
           console.error("Error deleting data:", error);
           Swal.fire("Error!", "Failed to delete the file.", "error");
@@ -108,7 +108,7 @@ const Home = () => {
         {data.map((item) => (
           <div key={item._id} className="p-4 border rounded shadow">
             <img
-              src={`http://localhost:3000/${item.imageUrl}`} // Ensure this matches your Express static path
+              src={`http://localhost:3000/${item.imageUrl}`}
               alt={item.name}
               className="w-full h-48 object-cover mb-2"
             />
@@ -174,10 +174,10 @@ const Home = () => {
                   editingItem.newImage = file;
                   const reader = new FileReader();
                   reader.onload = (event) => {
-                    editingItem.previewImageUrl = event.target.result; // Store preview URL
-                    setEditingItem({ ...editingItem }); // Trigger re-render
+                    editingItem.previewImageUrl = event.target.result;
+                    setEditingItem({ ...editingItem });
                   };
-                  reader.readAsDataURL(file); // Generate preview URL
+                  reader.readAsDataURL(file);
                 }
               }}
               className="block w-full mb-4"

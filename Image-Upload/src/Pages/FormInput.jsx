@@ -17,9 +17,6 @@ const FormInput = () => {
     reset,
   } = useForm();
 
-    // const img_hosting_token = import.meta.env.VITE_img_hosting_key;
-    // const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
-
   // Image preview handler
   const handleImagePreview = (e) => {
     const file = e.target.files[0];
@@ -31,7 +28,7 @@ const FormInput = () => {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    formData.append("image", data.imageUrl[0]); // Ensure this name matches backend
+    formData.append("image", data.imageUrl[0]);
     formData.append("name", data.name);
     formData.append("url", data.url);
     formData.append("details", data.details);
@@ -45,7 +42,7 @@ const FormInput = () => {
   
       if (response.data.insertedId) {
         reset();
-        setImagePreview(null); // Reset the image preview
+        setImagePreview(null);
         navigate(from, { replace: true });
         Swal.fire({
           showConfirmButton: false,
